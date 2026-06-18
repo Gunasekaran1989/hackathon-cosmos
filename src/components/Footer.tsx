@@ -38,7 +38,7 @@ export const Footer = () => (
       <div className="pt-8 border-t border-border flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
         <span>© 2026 Hackverse. Built by devs, for devs.</span>
         <div className="flex gap-4">
-          <a href="#" className="hover:text-foreground">Privacy</a>
+          <a href="/trust" className="hover:text-foreground">Trust &amp; Privacy</a>
           <a href="#" className="hover:text-foreground">Terms</a>
           <a href="#" className="hover:text-foreground">Code of Conduct</a>
         </div>
