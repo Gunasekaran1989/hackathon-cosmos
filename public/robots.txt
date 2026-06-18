@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://hackathon-cosmos.lovable.app/sitemap.xml

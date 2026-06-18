@@ -101,7 +101,7 @@ export const Hero = () => {
               </div>
               <div className="p-6">
                 <div className="text-xs text-muted-foreground mb-2">{featuredHero.organizer} • {featuredHero.location}</div>
-                <h3 className="text-2xl font-bold mb-4">{featuredHero.title}</h3>
+                <h2 className="text-2xl font-bold mb-4">{featuredHero.title}</h2>
                 <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Registration closes in</div>
                 <Countdown to={featuredHero.startDate} />
                 <div className="flex items-center justify-between mt-6 pt-6 border-t border-border">

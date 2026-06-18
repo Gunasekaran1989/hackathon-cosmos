@@ -1,0 +1,13 @@
+# Hackverse
+
+> Global hackathon discovery platform. Browse thousands of hackathons across AI, GenAI, Web3, Cloud, Cybersecurity, and Data — filterable by region, format, prize pool, and audience.
+
+Hackverse helps developers, students, and enterprise innovators find their next build sprint. The home page combines a live world map, smart search, and curated sections (Trending, AI & GenAI, Recently Added, Student Competitions, Enterprise Innovation).
+
+## Pages
+
+- [Home](/): Discover global hackathons with smart filters, a live world map, and curated category sections.
+
+## Optional
+
+- [Submit Event](/#submit): Organizer flow to list a new hackathon.
