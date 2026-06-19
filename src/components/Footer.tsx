@@ -24,13 +24,13 @@ export const Footer = () => (
           </div>
         </div>
         {[
-          { title: "Explore", items: ["Trending", "AI & GenAI", "Web3", "Student Hacks", "Enterprise"] },
-          { title: "Company", items: ["About", "Organizers", "Sponsors", "Careers", "Contact"] },
+          { title: "Explore", items: [{ label: "Trending", href: "#" }, { label: "AI & GenAI", href: "#" }, { label: "Web3", href: "#" }, { label: "Student Hacks", href: "#" }, { label: "Enterprise", href: "#" }] },
+          { title: "Guides", items: [{ label: "What is a hackathon?", href: "/guides/what-is-a-hackathon" }, { label: "About", href: "#" }, { label: "Organizers", href: "#" }, { label: "Sponsors", href: "#" }, { label: "Contact", href: "#" }] },
         ].map(c => (
           <div key={c.title}>
             <div className="font-bold text-sm uppercase tracking-widest mb-4">{c.title}</div>
             <ul className="space-y-2">
-              {c.items.map(i => <li key={i}><a href="#" className="text-muted-foreground hover:text-foreground text-sm">{i}</a></li>)}
+              {c.items.map(i => <li key={i.label}><a href={i.href} className="text-muted-foreground hover:text-foreground text-sm">{i.label}</a></li>)}
             </ul>
           </div>
         ))}
