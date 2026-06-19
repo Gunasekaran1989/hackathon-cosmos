@@ -1,4 +1,5 @@
 import { Code2, Github, Linkedin, Twitter } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export const Footer = () => (
   <footer className="relative mt-24 border-t border-border">
@@ -30,7 +31,24 @@ export const Footer = () => (
           <div key={c.title}>
             <div className="font-bold text-sm uppercase tracking-widest mb-4">{c.title}</div>
             <ul className="space-y-2">
-              {c.items.map(i => <li key={i.label}><a href={i.href} className="text-muted-foreground hover:text-foreground text-sm">{i.label}</a></li>)}
+              {c.items.map(i => (
+                <li key={i.label}>
+                  <a
+                    href={i.href}
+                    className="text-muted-foreground hover:text-foreground text-sm"
+                    onClick={() =>
+                      trackEvent("footer_link_click", {
+                        category: "footer",
+                        column: c.title,
+                        label: i.label,
+                        href: i.href,
+                      })
+                    }
+                  >
+                    {i.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         ))}
