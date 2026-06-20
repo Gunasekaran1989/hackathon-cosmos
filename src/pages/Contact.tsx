@@ -34,7 +34,7 @@ const Contact = () => {
     handleFormOpen();
     if (formFocusedRef.current) return;
     formFocusedRef.current = true;
-    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    const target = e.target as unknown as HTMLInputElement | HTMLTextAreaElement;
     trackEvent("contact_form_focus", { field: target.name || target.id || "unknown" });
   };
 
