@@ -133,7 +133,7 @@ const Contact = () => {
         <section className="glass rounded-2xl p-6 sm:p-8">
           <h2 className="text-2xl font-bold mb-1">Send a message</h2>
           <p className="text-sm text-muted-foreground mb-6">We typically respond within 2 business days.</p>
-          <form onSubmit={onSubmit} className="space-y-4">
+          <form onSubmit={onSubmit} onFocus={handleFormFocus} onMouseEnter={handleFormOpen} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
