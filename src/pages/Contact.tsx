@@ -17,6 +17,26 @@ const channels = [
 
 const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
+  const formOpenedRef = useRef(false);
+  const formFocusedRef = useRef(false);
+
+  useEffect(() => {
+    trackEvent("contact_page_view", { path: "/guides/contact" });
+  }, []);
+
+  const handleFormOpen = () => {
+    if (formOpenedRef.current) return;
+    formOpenedRef.current = true;
+    trackEvent("contact_form_open");
+  };
+
+  const handleFormFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    handleFormOpen();
+    if (formFocusedRef.current) return;
+    formFocusedRef.current = true;
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    trackEvent("contact_form_focus", { field: target.name || target.id || "unknown" });
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
