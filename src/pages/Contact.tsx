@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Code2, Mail, MessageSquare, Building2, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,26 @@ const channels = [
 
 const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
+  const formOpenedRef = useRef(false);
+  const formFocusedRef = useRef(false);
+
+  useEffect(() => {
+    trackEvent("contact_page_view", { path: "/guides/contact" });
+  }, []);
+
+  const handleFormOpen = () => {
+    if (formOpenedRef.current) return;
+    formOpenedRef.current = true;
+    trackEvent("contact_form_open");
+  };
+
+  const handleFormFocus = (e: React.FocusEvent<HTMLFormElement>) => {
+    handleFormOpen();
+    if (formFocusedRef.current) return;
+    formFocusedRef.current = true;
+    const target = e.target as unknown as HTMLInputElement | HTMLTextAreaElement;
+    trackEvent("contact_form_focus", { field: target.name || target.id || "unknown" });
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -113,7 +133,7 @@ const Contact = () => {
         <section className="glass rounded-2xl p-6 sm:p-8">
           <h2 className="text-2xl font-bold mb-1">Send a message</h2>
           <p className="text-sm text-muted-foreground mb-6">We typically respond within 2 business days.</p>
-          <form onSubmit={onSubmit} className="space-y-4">
+          <form onSubmit={onSubmit} onFocus={handleFormFocus} onMouseEnter={handleFormOpen} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
