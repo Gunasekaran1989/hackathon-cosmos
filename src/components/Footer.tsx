@@ -26,7 +26,7 @@ export const Footer = () => (
         </div>
         {[
           { title: "Explore", items: [{ label: "Trending", href: "#" }, { label: "AI & GenAI", href: "#" }, { label: "Web3", href: "#" }, { label: "Student Hacks", href: "#" }, { label: "Enterprise", href: "#" }] },
-          { title: "Guides", items: [{ label: "What is a hackathon?", href: "/guides/what-is-a-hackathon" }, { label: "About", href: "#" }, { label: "Organizers", href: "#" }, { label: "Sponsors", href: "#" }, { label: "Contact", href: "#" }] },
+          { title: "Guides", items: [{ label: "What is a hackathon?", href: "/guides/what-is-a-hackathon" }, { label: "About", href: "#" }, { label: "Organizers", href: "#" }, { label: "Sponsors", href: "#" }, { label: "Contact", href: "/guides/contact" }] },
         ].map(c => (
           <div key={c.title}>
             <div className="font-bold text-sm uppercase tracking-widest mb-4">{c.title}</div>
