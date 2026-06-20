@@ -20,16 +20,39 @@ const Contact = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setSubmitting(true);
-    const data = new FormData(e.currentTarget);
-    trackEvent("contact_form_submit", {
-      topic: String(data.get("topic") || ""),
-    });
-    setTimeout(() => {
+    const data = new FormData(form);
+    const topic = String(data.get("topic") || "");
+    const startedAt = performance.now();
+    trackEvent("contact_form_submit", { topic });
+
+    try {
+      // Basic client-side validation beyond the native required checks
+      const email = String(data.get("email") || "");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error("invalid_email");
+      }
+
+      setTimeout(() => {
+        setSubmitting(false);
+        form.reset();
+        trackEvent("contact_form_success", {
+          topic,
+          duration_ms: Math.round(performance.now() - startedAt),
+        });
+        toast.success("Message sent — we'll get back to you within 2 business days.");
+      }, 500);
+    } catch (err) {
       setSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-      toast.success("Message sent — we'll get back to you within 2 business days.");
-    }, 500);
+      const reason = err instanceof Error ? err.message : "unknown";
+      trackEvent("contact_form_error", {
+        topic,
+        reason,
+        duration_ms: Math.round(performance.now() - startedAt),
+      });
+      toast.error("We couldn't send your message. Please check your details and try again.");
+    }
   };
 
   return (
