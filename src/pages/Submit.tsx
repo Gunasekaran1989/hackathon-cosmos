@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Code2, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ const perks = [
 ];
 
 const Submit = () => {
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const Submit = () => {
           duration_ms: Math.round(performance.now() - startedAt),
         });
         toast.success("Submission received — we'll review and publish within 48 hours.");
+        navigate("/submit/success");
       }, 600);
     } catch (err) {
       setSubmitting(false);
