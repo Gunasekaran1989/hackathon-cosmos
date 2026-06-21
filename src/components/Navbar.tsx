@@ -55,7 +55,7 @@ export const Navbar = () => {
           <Button variant="ghost" size="icon" aria-label="Profile" className="hidden sm:inline-flex">
             <User className="h-5 w-5" />
           </Button>
-          <Button variant="hero" size="sm" className="hidden md:inline-flex">Submit Event</Button>
+          <Button asChild variant="hero" size="sm" className="hidden md:inline-flex"><a href="/submit">Submit Event</a></Button>
           <Button variant="ghost" size="icon" aria-label="Menu" className="lg:hidden" onClick={() => setOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
@@ -83,7 +83,7 @@ export const Navbar = () => {
                 </a>
               ))}
             </nav>
-            <Button variant="hero" className="w-full mt-6">Submit Event</Button>
+            <Button asChild variant="hero" className="w-full mt-6"><a href="/submit" onClick={() => setOpen(false)}>Submit Event</a></Button>
           </div>
         </div>
       )}
