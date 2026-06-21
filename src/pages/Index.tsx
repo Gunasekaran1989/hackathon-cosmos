@@ -132,9 +132,9 @@ const Index = () => {
               <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8 text-lg">
                 Submit your hackathon in minutes. Get featured, attract elite talent, and build the next wave of products.
               </p>
-              <button className="bg-background text-foreground rounded-full px-8 py-4 font-bold hover:scale-105 transition-transform">
+              <a href="/submit" className="inline-block bg-background text-foreground rounded-full px-8 py-4 font-bold hover:scale-105 transition-transform">
                 Submit your event →
-              </button>
+              </a>
             </div>
           </div>
         </section>

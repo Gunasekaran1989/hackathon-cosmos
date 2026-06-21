@@ -62,8 +62,8 @@ export const Hero = () => {
               <Button variant="hero" size="xl">
                 Explore Hackathons <ArrowRight />
               </Button>
-              <Button variant="glass" size="xl">
-                <Upload /> Submit Event
+              <Button asChild variant="glass" size="xl">
+                <a href="/submit"><Upload /> Submit Event</a>
               </Button>
             </div>
 
