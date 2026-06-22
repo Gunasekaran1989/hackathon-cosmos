@@ -1,27 +1,55 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { CheckCircle2, Code2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { CheckCircle2, Code2, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { toast } from "@/hooks/use-toast";
 
 const REDIRECT_SECONDS = 6;
+
+const generateReferenceId = () => {
+  const ts = Date.now().toString(36).toUpperCase();
+  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `HV-${ts}-${rand}`;
+};
 
 const SubmitSuccess = () => {
   const navigate = useNavigate();
   const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
+  const [copied, setCopied] = useState(false);
+  const referenceId = useMemo(() => generateReferenceId(), []);
 
   useEffect(() => {
-    trackEvent("submission_success_page_view", { path: "/submit/success" });
-  }, []);
+    trackEvent("submission_success_page_view", {
+      path: "/submit/success",
+      reference_id: referenceId,
+    });
+  }, [referenceId]);
 
   useEffect(() => {
     if (secondsLeft <= 0) {
       navigate("/", { replace: true });
       return;
     }
-    const t = setTimeout(() => setSecondsLeft(s => s - 1), 1000);
+    const t = setTimeout(() => setSecondsLeft((s) => s - 1), 1000);
     return () => clearTimeout(t);
   }, [secondsLeft, navigate]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(referenceId);
+      setCopied(true);
+      trackEvent("submission_reference_copy", { reference_id: referenceId });
+      toast({ title: "Reference copied", description: referenceId });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast({
+        title: "Copy failed",
+        description: "Please select and copy the reference manually.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -48,6 +76,36 @@ const SubmitSuccess = () => {
             <p className="text-muted-foreground">
               Thanks for sharing your event. Our team reviews submissions within 48 hours and you'll
               get a confirmation email once it's live.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card/40 p-5 text-left space-y-2">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">
+              Your submission reference
+            </p>
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <code className="font-mono text-lg sm:text-xl text-foreground break-all">
+                {referenceId}
+              </code>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleCopy}
+                aria-label="Copy reference ID"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4" /> Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" /> Copy reference
+                  </>
+                )}
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Keep this ID handy — include it in any follow-up emails so we can locate your event quickly.
             </p>
           </div>
 
