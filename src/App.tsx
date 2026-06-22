@@ -10,6 +10,7 @@ import WhatIsAHackathon from "./pages/WhatIsAHackathon.tsx";
 import Contact from "./pages/Contact.tsx";
 import Submit from "./pages/Submit.tsx";
 import SubmitSuccess from "./pages/SubmitSuccess.tsx";
+import Auth from "./pages/Auth.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/guides/contact" element={<Contact />} />
           <Route path="/submit" element={<Submit />} />
           <Route path="/submit/success" element={<SubmitSuccess />} />
+          <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

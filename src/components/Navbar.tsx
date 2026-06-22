@@ -52,8 +52,8 @@ export const Navbar = () => {
             <Bell className="h-5 w-5" />
             <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-accent animate-pulse-glow" />
           </Button>
-          <Button variant="ghost" size="icon" aria-label="Profile" className="hidden sm:inline-flex">
-            <User className="h-5 w-5" />
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+            <a href="/auth"><User className="h-4 w-4 mr-1" />Sign in</a>
           </Button>
           <Button asChild variant="hero" size="sm" className="hidden md:inline-flex"><a href="/submit">Submit Event</a></Button>
           <Button variant="ghost" size="icon" aria-label="Menu" className="lg:hidden" onClick={() => setOpen(true)}>
