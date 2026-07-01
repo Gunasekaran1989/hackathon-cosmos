@@ -110,7 +110,12 @@ const Auth = () => {
                   <Input id="si-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="si-pw">Password</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="si-pw">Password</Label>
+                    <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground">
+                      Forgot password?
+                    </Link>
+                  </div>
                   <Input id="si-pw" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <Button type="submit" variant="hero" className="w-full" disabled={loading}>
