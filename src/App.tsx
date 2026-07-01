@@ -14,6 +14,7 @@ import Auth from "./pages/Auth.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
+import Hackathons from "./pages/Hackathons.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/hackathons" element={<Hackathons />} />
           <Route path="/trust" element={<Trust />} />
           <Route path="/guides/what-is-a-hackathon" element={<WhatIsAHackathon />} />
           <Route path="/guides/contact" element={<Contact />} />
