@@ -14,6 +14,7 @@ import Auth from "./pages/Auth.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
+import Hackathons from "./pages/Hackathons.tsx";
 
 const queryClient = new QueryClient();
 
