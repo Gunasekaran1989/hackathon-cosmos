@@ -11,6 +11,9 @@ import Contact from "./pages/Contact.tsx";
 import Submit from "./pages/Submit.tsx";
 import SubmitSuccess from "./pages/SubmitSuccess.tsx";
 import Auth from "./pages/Auth.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const queryClient = new QueryClient();
 
