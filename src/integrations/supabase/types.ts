@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      hackathons: {
+        Row: {
+          banner_image: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          organizer: string
+          prize_pool: number | null
+          start_date: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          banner_image?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          organizer: string
+          prize_pool?: number | null
+          start_date: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          banner_image?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          organizer?: string
+          prize_pool?: number | null
+          start_date?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
