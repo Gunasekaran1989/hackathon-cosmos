@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Calendar, MapPin, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -136,8 +137,8 @@ const Hackathons = () => {
                     </div>
                   )}
 
-                  <Button variant="hero" size="sm" className="w-full">
-                    View Details
+                  <Button variant="hero" size="sm" className="w-full" asChild>
+                    <Link to={`/hackathon/${h.id}`}>View Details</Link>
                   </Button>
                 </div>
               </article>

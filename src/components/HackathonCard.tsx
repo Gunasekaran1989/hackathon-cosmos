@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Trophy, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Hackathon } from "@/data/hackathons";
 import { Countdown } from "./Countdown";
 import { Button } from "@/components/ui/button";
@@ -102,7 +103,9 @@ export const HackathonCard = ({ h, onHover, active }: Props) => {
           </span>
         </div>
 
-        <Button variant="hero" size="sm" className="w-full mt-4">View Details</Button>
+        <Button variant="hero" size="sm" className="w-full mt-4" asChild>
+          <Link to={`/hackathon/${h.id}`}>View Details</Link>
+        </Button>
       </div>
     </motion.article>
   );
