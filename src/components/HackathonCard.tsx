@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Trophy, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Hackathon } from "@/data/hackathons";
 import { Countdown } from "./Countdown";
 import { Button } from "@/components/ui/button";
