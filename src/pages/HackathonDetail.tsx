@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import placeholder from "@/assets/hack-ai.jpg";
-import { track } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 
 // Row subset for the detail page
 type HackathonDetail = {
