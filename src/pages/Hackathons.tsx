@@ -137,8 +137,8 @@ const Hackathons = () => {
                     </div>
                   )}
 
-                  <Button variant="hero" size="sm" className="w-full">
-                    View Details
+                  <Button variant="hero" size="sm" className="w-full" asChild>
+                    <Link to={`/hackathon/${h.id}`}>View Details</Link>
                   </Button>
                 </div>
               </article>
