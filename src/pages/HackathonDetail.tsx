@@ -57,7 +57,7 @@ const HackathonDetail = () => {
       setHackathon(data as HackathonDetail);
       document.title = `${data.title} | Hackverse`;
 
-      track("hackathon_detail_view", { id: data.id, title: data.title });
+      trackEvent("hackathon_detail_view", { id: data.id, title: data.title });
     })();
   }, [id]);
 
@@ -181,7 +181,7 @@ const HackathonDetail = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() =>
-                      track("hackathon_register_click", {
+                      trackEvent("hackathon_register_click", {
                         id: hackathon.id,
                         title: hackathon.title,
                         url: hackathon.website_url,
