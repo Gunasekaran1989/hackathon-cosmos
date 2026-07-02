@@ -103,7 +103,9 @@ export const HackathonCard = ({ h, onHover, active }: Props) => {
           </span>
         </div>
 
-        <Button variant="hero" size="sm" className="w-full mt-4">View Details</Button>
+        <Button variant="hero" size="sm" className="w-full mt-4" asChild>
+          <Link to={`/hackathon/${h.id}`}>View Details</Link>
+        </Button>
       </div>
     </motion.article>
   );
