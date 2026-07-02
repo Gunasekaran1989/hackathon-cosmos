@@ -16,6 +16,9 @@ import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
 import Hackathons from "./pages/Hackathons.tsx";
 import HackathonDetail from "./pages/HackathonDetail.tsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
+import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +41,9 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/hackathons" element={<AdminHackathons />} />
+          <Route path="/admin/hackathons/:id/edit" element={<AdminHackathonEdit />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
