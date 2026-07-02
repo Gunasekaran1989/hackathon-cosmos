@@ -16,6 +16,9 @@ import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
 import Hackathons from "./pages/Hackathons.tsx";
 import HackathonDetail from "./pages/HackathonDetail.tsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
+import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
 
 const queryClient = new QueryClient();
 
