@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
+import BannerUpload from "@/components/BannerUpload";
+import { bannerUrl } from "@/lib/banner";
 
 type Form = {
   title: string; slug: string; short_description: string; description: string;
@@ -151,7 +153,13 @@ export default function AdminHackathonEdit() {
             <CardContent className="grid md:grid-cols-2 gap-4">
               <Field label="Organizer *"><Input value={form.organizer} onChange={e => set("organizer", e.target.value)} /></Field>
               <Field label="Organizer logo URL"><Input value={form.organizer_logo} onChange={e => set("organizer_logo", e.target.value)} /></Field>
-              <Field label="Banner image URL" className="md:col-span-2"><Input value={form.banner_image} onChange={e => set("banner_image", e.target.value)} /></Field>
+              <div className="md:col-span-2">
+                <BannerUpload
+                  value={form.banner_image || null}
+                  onChange={(path) => set("banner_image", path)}
+                  slugSource={form.slug || form.title}
+                />
+              </div>
               <Field label="Website URL"><Input value={form.website_url} onChange={e => set("website_url", e.target.value)} /></Field>
               <Field label="Registration URL"><Input value={form.registration_url} onChange={e => set("registration_url", e.target.value)} /></Field>
             </CardContent>
@@ -215,7 +223,7 @@ export default function AdminHackathonEdit() {
               {form.banner_image && (
                 <div>
                   <Label className="text-xs">Banner preview</Label>
-                  <img src={form.banner_image} alt="" className="w-full rounded-lg mt-2 aspect-video object-cover" />
+                  <img src={bannerUrl(form.banner_image)} alt="" className="w-full rounded-lg mt-2 aspect-video object-cover" />
                 </div>
               )}
             </CardContent>

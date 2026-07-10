@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { trackEvent } from "@/lib/analytics";
+import BannerUpload from "@/components/BannerUpload";
 
 const perks = [
   "Free listing — organizers never pay to submit events.",
@@ -17,6 +18,8 @@ const perks = [
 const Submit = () => {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [bannerPath, setBannerPath] = useState<string>("");
+  const [eventName, setEventName] = useState<string>("");
 
   useEffect(() => {
     trackEvent("submit_page_view", { path: "/submit" });
@@ -121,7 +124,7 @@ const Submit = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="event_name">Event name *</Label>
-                <Input id="event_name" name="event_name" required maxLength={120} placeholder="Hackverse Global 2026" />
+                <Input id="event_name" name="event_name" required maxLength={120} placeholder="Hackverse Global 2026" value={eventName} onChange={(e) => setEventName(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="organizer">Organizer / Company *</Label>
@@ -167,6 +170,11 @@ const Submit = () => {
                 <Input id="prize_pool" name="prize_pool" maxLength={60} placeholder="$50,000 USD" />
               </div>
             </div>
+            <BannerUpload
+              value={bannerPath || null}
+              onChange={setBannerPath}
+              slugSource={eventName}
+            />
             <div className="space-y-2">
               <Label htmlFor="description">Description *</Label>
               <Textarea
