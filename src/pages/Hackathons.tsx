@@ -95,7 +95,7 @@ const Hackathons = () => {
               >
                 <div className="relative h-44 overflow-hidden">
                   <img
-                    src={h.banner_image || placeholder}
+                    src={bannerUrl(h.banner_image) || placeholder}
                     alt={h.title}
                     loading="lazy"
                     onError={(e) => ((e.currentTarget as HTMLImageElement).src = placeholder)}
