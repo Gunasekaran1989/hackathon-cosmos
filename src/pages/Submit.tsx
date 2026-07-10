@@ -18,6 +18,8 @@ const perks = [
 const Submit = () => {
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [bannerPath, setBannerPath] = useState<string>("");
+  const [eventName, setEventName] = useState<string>("");
 
   useEffect(() => {
     trackEvent("submit_page_view", { path: "/submit" });
