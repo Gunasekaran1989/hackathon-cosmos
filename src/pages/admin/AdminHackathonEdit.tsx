@@ -223,7 +223,7 @@ export default function AdminHackathonEdit() {
               {form.banner_image && (
                 <div>
                   <Label className="text-xs">Banner preview</Label>
-                  <img src={form.banner_image} alt="" className="w-full rounded-lg mt-2 aspect-video object-cover" />
+                  <img src={bannerUrl(form.banner_image)} alt="" className="w-full rounded-lg mt-2 aspect-video object-cover" />
                 </div>
               )}
             </CardContent>
