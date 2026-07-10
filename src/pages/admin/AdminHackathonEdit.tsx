@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
+import BannerUpload from "@/components/BannerUpload";
+import { bannerUrl } from "@/lib/banner";
 
 type Form = {
   title: string; slug: string; short_description: string; description: string;
