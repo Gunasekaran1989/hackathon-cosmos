@@ -124,7 +124,7 @@ const Submit = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="event_name">Event name *</Label>
-                <Input id="event_name" name="event_name" required maxLength={120} placeholder="Hackverse Global 2026" />
+                <Input id="event_name" name="event_name" required maxLength={120} placeholder="Hackverse Global 2026" value={eventName} onChange={(e) => setEventName(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="organizer">Organizer / Company *</Label>
