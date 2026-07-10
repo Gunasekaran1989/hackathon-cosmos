@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { trackEvent } from "@/lib/analytics";
+import BannerUpload from "@/components/BannerUpload";
 
 const perks = [
   "Free listing — organizers never pay to submit events.",
