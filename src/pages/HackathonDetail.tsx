@@ -94,7 +94,7 @@ const HackathonDetail = () => {
             {/* Banner */}
             <div className="relative h-64 sm:h-80 md:h-96 overflow-hidden">
               <img
-                src={hackathon.banner_image || placeholder}
+                src={bannerUrl(hackathon.banner_image) || placeholder}
                 alt={hackathon.title}
                 loading="eager"
                 onError={(e) => ((e.currentTarget as HTMLImageElement).src = placeholder)}
