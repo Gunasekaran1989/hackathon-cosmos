@@ -170,6 +170,11 @@ const Submit = () => {
                 <Input id="prize_pool" name="prize_pool" maxLength={60} placeholder="$50,000 USD" />
               </div>
             </div>
+            <BannerUpload
+              value={bannerPath || null}
+              onChange={setBannerPath}
+              slugSource={eventName}
+            />
             <div className="space-y-2">
               <Label htmlFor="description">Description *</Label>
               <Textarea
