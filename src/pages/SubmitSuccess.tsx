@@ -74,9 +74,12 @@ const SubmitSuccess = () => {
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Submission <span className="gradient-text">received</span>
             </h1>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <Clock className="h-3.5 w-3.5" /> Pending review
+            </div>
             <p className="text-muted-foreground">
-              Thanks for sharing your event. Our team reviews submissions within 48 hours and you'll
-              get a confirmation email once it's live.
+              Thanks for sharing your event. Every submission is reviewed by our team before it's
+              published — we'll email you within 48 hours once your hackathon goes live.
             </p>
           </div>
 
