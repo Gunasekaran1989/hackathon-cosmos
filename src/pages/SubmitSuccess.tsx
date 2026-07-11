@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Code2, Copy, Check } from "lucide-react";
+import { CheckCircle2, Code2, Copy, Check, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { toast } from "@/hooks/use-toast";
 
-const REDIRECT_SECONDS = 6;
+const REDIRECT_SECONDS = 8;
 
 const generateReferenceId = () => {
   const ts = Date.now().toString(36).toUpperCase();
@@ -15,9 +15,10 @@ const generateReferenceId = () => {
 
 const SubmitSuccess = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
   const [copied, setCopied] = useState(false);
-  const referenceId = useMemo(() => generateReferenceId(), []);
+  const referenceId = useMemo(() => params.get("ref") || generateReferenceId(), [params]);
 
   useEffect(() => {
     trackEvent("submission_success_page_view", {
