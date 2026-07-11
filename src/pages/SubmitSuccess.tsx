@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Code2, Copy, Check } from "lucide-react";
+import { CheckCircle2, Code2, Copy, Check, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { toast } from "@/hooks/use-toast";
 
-const REDIRECT_SECONDS = 6;
+const REDIRECT_SECONDS = 8;
 
 const generateReferenceId = () => {
   const ts = Date.now().toString(36).toUpperCase();
@@ -15,9 +15,10 @@ const generateReferenceId = () => {
 
 const SubmitSuccess = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
   const [copied, setCopied] = useState(false);
-  const referenceId = useMemo(() => generateReferenceId(), []);
+  const referenceId = useMemo(() => params.get("ref") || generateReferenceId(), [params]);
 
   useEffect(() => {
     trackEvent("submission_success_page_view", {
@@ -73,9 +74,12 @@ const SubmitSuccess = () => {
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Submission <span className="gradient-text">received</span>
             </h1>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <Clock className="h-3.5 w-3.5" /> Pending review
+            </div>
             <p className="text-muted-foreground">
-              Thanks for sharing your event. Our team reviews submissions within 48 hours and you'll
-              get a confirmation email once it's live.
+              Thanks for sharing your event. Every submission is reviewed by our team before it's
+              published — we'll email you within 48 hours once your hackathon goes live.
             </p>
           </div>
 

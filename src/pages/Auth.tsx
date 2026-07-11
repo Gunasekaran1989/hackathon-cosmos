@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Code2, Loader2 } from "lucide-react";
 
+const isSafeRedirect = (path: string | null) => !!path && path.startsWith("/") && !path.startsWith("//");
+
 const Auth = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const redirectTo = isSafeRedirect(params.get("redirect")) ? (params.get("redirect") as string) : "/";
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -21,13 +25,13 @@ const Auth = () => {
   useEffect(() => {
     document.title = "Sign in — hackverse";
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate("/", { replace: true });
+      if (session) navigate(redirectTo, { replace: true });
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) navigate("/", { replace: true });
+      if (session) navigate(redirectTo, { replace: true });
     });
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, redirectTo]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
