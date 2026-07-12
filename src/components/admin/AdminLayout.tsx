@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Navigate, Link, useLocation } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
-import { Loader2, LayoutDashboard, ListChecks, LogOut } from "lucide-react";
+import { Loader2, LayoutDashboard, ListChecks, LogOut, Inbox } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
