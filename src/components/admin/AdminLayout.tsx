@@ -31,6 +31,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   const navItems = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
+    { to: "/admin/submissions", label: "Submissions", icon: Inbox },
     { to: "/admin/hackathons", label: "Hackathons", icon: ListChecks },
   ];
 
