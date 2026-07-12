@@ -20,6 +20,8 @@ import HackathonDetail from "./pages/HackathonDetail.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
 import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
+import AdminSubmissions from "./pages/admin/AdminSubmissions.tsx";
+import AdminSubmissionReview from "./pages/admin/AdminSubmissionReview.tsx";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/hackathons" element={<AdminHackathons />} />
           <Route path="/admin/hackathons/:id/edit" element={<AdminHackathonEdit />} />
+          <Route path="/admin/submissions" element={<AdminSubmissions />} />
+          <Route path="/admin/submissions/:id" element={<AdminSubmissionReview />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

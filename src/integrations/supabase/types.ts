@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       hackathon_submissions: {
         Row: {
+          admin_notes: string | null
           banner_image: string | null
           created_at: string
           description: string | null
@@ -30,6 +31,8 @@ export type Database = {
           published_hackathon_id: string | null
           reference_id: string | null
           rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           start_date: string | null
           status: string
           updated_at: string
@@ -37,6 +40,7 @@ export type Database = {
           website: string | null
         }
         Insert: {
+          admin_notes?: string | null
           banner_image?: string | null
           created_at?: string
           description?: string | null
@@ -51,6 +55,8 @@ export type Database = {
           published_hackathon_id?: string | null
           reference_id?: string | null
           rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           start_date?: string | null
           status?: string
           updated_at?: string
@@ -58,6 +64,7 @@ export type Database = {
           website?: string | null
         }
         Update: {
+          admin_notes?: string | null
           banner_image?: string | null
           created_at?: string
           description?: string | null
@@ -72,6 +79,8 @@ export type Database = {
           published_hackathon_id?: string | null
           reference_id?: string | null
           rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           start_date?: string | null
           status?: string
           updated_at?: string
