@@ -14,6 +14,7 @@ import Auth from "./pages/Auth.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
+import MySubmissions from "./pages/MySubmissions.tsx";
 import Hackathons from "./pages/Hackathons.tsx";
 import HackathonDetail from "./pages/HackathonDetail.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/my-submissions" element={<MySubmissions />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/hackathons" element={<AdminHackathons />} />
           <Route path="/admin/hackathons/:id/edit" element={<AdminHackathonEdit />} />

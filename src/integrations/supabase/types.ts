@@ -27,7 +27,9 @@ export type Database = {
           location: string | null
           organizer: string
           prize_pool: string | null
+          published_hackathon_id: string | null
           reference_id: string | null
+          rejection_reason: string | null
           start_date: string | null
           status: string
           updated_at: string
@@ -46,7 +48,9 @@ export type Database = {
           location?: string | null
           organizer: string
           prize_pool?: string | null
+          published_hackathon_id?: string | null
           reference_id?: string | null
+          rejection_reason?: string | null
           start_date?: string | null
           status?: string
           updated_at?: string
@@ -65,14 +69,24 @@ export type Database = {
           location?: string | null
           organizer?: string
           prize_pool?: string | null
+          published_hackathon_id?: string | null
           reference_id?: string | null
+          rejection_reason?: string | null
           start_date?: string | null
           status?: string
           updated_at?: string
           user_id?: string
           website?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "hackathon_submissions_published_hackathon_id_fkey"
+            columns: ["published_hackathon_id"]
+            isOneToOne: false
+            referencedRelation: "hackathons"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       hackathons: {
         Row: {
