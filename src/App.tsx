@@ -20,6 +20,8 @@ import HackathonDetail from "./pages/HackathonDetail.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
 import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
+import AdminSubmissions from "./pages/admin/AdminSubmissions.tsx";
+import AdminSubmissionReview from "./pages/admin/AdminSubmissionReview.tsx";
 
 const queryClient = new QueryClient();
 
