@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://fctcllatikygnsemygrf.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "hackverse-mcp",
+      "version": "0.1.0",
+      "title": "Hackverse"
+    },
+    "tools": [
+      {
+        "name": "list_hackathons",
+        "title": "List hackathons",
+        "description": "List approved, publicly listed hackathons on Hackverse. Supports optional text search and a result limit.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Optional case-insensitive substring to match against title, organizer, or country.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Max rows to return. Default 20.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_hackathon",
+        "title": "Get hackathon",
+        "description": "Fetch full details for a single approved hackathon by its id.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Hackathon id (uuid)."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_submissions",
+        "title": "List my submissions",
+        "description": "List the signed-in user's hackathon submissions with status and reference id.",
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_submission",
+        "title": "Submit a hackathon",
+        "description": "Create a new hackathon submission on behalf of the signed-in user. Enters the moderation queue with status 'pending'.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "event_name": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Event title."
+            },
+            "organizer": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Organizing team or company."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
+              "description": "Contact email."
+            },
+            "description": {
+              "type": "string"
+            },
+            "website": {
+              "type": "string",
+              "format": "uri"
+            },
+            "location": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "online",
+                "in-person",
+                "hybrid"
+              ]
+            },
+            "prize_pool": {
+              "type": "string"
+            },
+            "start_date": {
+              "description": "ISO date (YYYY-MM-DD).",
+              "type": "string"
+            },
+            "end_date": {
+              "description": "ISO date (YYYY-MM-DD).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "event_name",
+            "organizer",
+            "email"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_my_profile",
+        "title": "Get my profile",
+        "description": "Return the signed-in Hackverse user's profile (display name, avatar).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
