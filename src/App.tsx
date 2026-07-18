@@ -22,6 +22,7 @@ import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
 import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
 import AdminSubmissions from "./pages/admin/AdminSubmissions.tsx";
 import AdminSubmissionReview from "./pages/admin/AdminSubmissionReview.tsx";
+import OAuthConsent from "./pages/OAuthConsent.tsx";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
           <Route path="/admin/hackathons/:id/edit" element={<AdminHackathonEdit />} />
           <Route path="/admin/submissions" element={<AdminSubmissions />} />
           <Route path="/admin/submissions/:id" element={<AdminSubmissionReview />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

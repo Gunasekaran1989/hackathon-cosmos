@@ -49,7 +49,7 @@ const Auth = () => {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `${window.location.origin}${redirectTo}`,
         data: { display_name: displayName },
       },
     });
@@ -60,7 +60,9 @@ const Auth = () => {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: `${window.location.origin}${redirectTo}`,
+    });
     if (result.error) {
       setLoading(false);
       return toast({ title: "Google sign-in failed", description: String(result.error), variant: "destructive" });
