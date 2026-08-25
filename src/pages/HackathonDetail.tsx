@@ -28,8 +28,13 @@ type HackathonDetail = {
 
 const fmtDate = (d: string) =>
   new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-const fmtMoney = (n: number | null) =>
-  n == null ? "TBA" : n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${n}`;
+const fmtMoney = (v: string | number | null) => {
+  if (v == null || v === "") return "TBA";
+  const n = typeof v === "number" ? v : Number(String(v).replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(n) || n <= 0) return String(v);
+  return n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${n}`;
+};
+
 
 const HackathonDetail = () => {
   const { id } = useParams<{ id: string }>();
