@@ -18,7 +18,7 @@ type Row = {
   city: string | null;
   start_date: string;
   end_date: string | null;
-  prize_pool: number | null;
+  prize_pool: string | null;
   tags: string[] | null;
 };
 
