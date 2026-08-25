@@ -205,7 +205,7 @@ export default function AdminHackathons() {
                   <TableCell>{r.country ?? "—"}</TableCell>
                   <TableCell>{r.city ?? "—"}</TableCell>
                   <TableCell><span className="capitalize">{r.mode ?? "—"}</span></TableCell>
-                  <TableCell>{r.prize_pool ? `$${r.prize_pool.toLocaleString()}` : "—"}</TableCell>
+                  <TableCell>{r.prize_pool ? r.prize_pool : "—"}</TableCell>
                   <TableCell>{r.registration_deadline ? new Date(r.registration_deadline).toLocaleDateString() : "—"}</TableCell>
                   <TableCell>{new Date(r.start_date).toLocaleDateString()}</TableCell>
                   <TableCell>{r.featured ? <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" /> : <span className="text-muted-foreground">—</span>}</TableCell>
