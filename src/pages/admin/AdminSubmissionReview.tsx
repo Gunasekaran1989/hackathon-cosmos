@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { supabase } from "@/integrations/supabase/client";
-import { bannerUrl, slugify } from "@/lib/banner";
+import { bannerUrl } from "@/lib/banner";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,11 +42,13 @@ type Sub = {
   admin_notes: string | null;
 };
 
-function parsePrize(text: string | null): number | null {
-  if (!text) return null;
-  const n = Number(String(text).replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) && n > 0 ? n : null;
-}
+type ApproveResult = {
+  success: boolean;
+  hackathon_id: string;
+  slug: string;
+  submission_id: string;
+};
+
 
 export default function AdminSubmissionReview() {
   const { id } = useParams<{ id: string }>();
@@ -88,69 +90,27 @@ export default function AdminSubmissionReview() {
 
   const doApprove = async () => {
     if (!sub) return;
-    if (!sub.event_name?.trim() || !sub.organizer?.trim()) {
-      return toast.error("Missing required fields: event name or organizer");
-    }
-    if (!sub.start_date) {
-      return toast.error("Missing required field: start date");
-    }
     setBusy(true);
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const adminId = userData.user?.id ?? null;
-
-      const modeMap: Record<string, string> = {
-        online: "online", virtual: "online",
-        "in-person": "in-person", offline: "in-person",
-        hybrid: "hybrid",
-      };
-      const mode = sub.format ? modeMap[sub.format.toLowerCase()] ?? sub.format : null;
-
-      const insertPayload = {
-        title: sub.event_name,
-        organizer: sub.organizer,
-        description: sub.description,
-        banner_image: sub.banner_image,
-        location: sub.location,
-        start_date: sub.start_date,
-        end_date: sub.end_date,
-        prize_pool: parsePrize(sub.prize_pool),
-        website_url: sub.website,
-        registration_url: sub.website,
-        mode,
-        slug: `${slugify(sub.event_name)}-${sub.id.slice(0, 6)}`,
-        status: "approved",
-      };
-
-      const { data: inserted, error: insErr } = await supabase
-        .from("hackathons")
-        .insert(insertPayload)
-        .select("id")
-        .single();
-      if (insErr) throw insErr;
-
-      const { error: updErr } = await supabase
-        .from("hackathon_submissions")
-        .update({
-          status: "approved",
-          reviewed_at: new Date().toISOString(),
-          reviewed_by: adminId,
-          published_hackathon_id: inserted.id,
-          admin_notes: adminNotes || null,
-          rejection_reason: null,
-        })
-        .eq("id", sub.id);
-      if (updErr) throw updErr;
-
+      const { data, error } = await supabase.rpc("approve_hackathon_submission", {
+        submission_id: sub.id,
+        admin_notes_override: adminNotes || null,
+      });
+      if (error) throw error;
+      const result = data as unknown as ApproveResult;
       toast.success("Submission approved and published");
+      if (result?.hackathon_id) {
+        setSub({ ...sub, status: "approved", published_hackathon_id: result.hackathon_id });
+      }
       navigate("/admin/submissions");
     } catch (e: any) {
-      toast.error(e.message ?? "Failed to approve");
+      toast.error(e?.message ?? "Failed to approve submission");
     } finally {
       setBusy(false);
       setConfirm(null);
     }
   };
+
 
   const doReject = async () => {
     if (!sub) return;

@@ -103,7 +103,7 @@ export default function AdminHackathonEdit() {
       location: form.location || null,
       mode: form.mode || null,
       event_type: form.event_type || null,
-      prize_pool: form.prize_pool ? Number(form.prize_pool) : null,
+      prize_pool: form.prize_pool ? form.prize_pool : null,
       start_date: form.start_date,
       end_date: form.end_date || null,
       registration_deadline: form.registration_deadline || null,

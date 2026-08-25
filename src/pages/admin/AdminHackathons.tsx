@@ -29,7 +29,7 @@ import {
 
 type Row = {
   id: string; title: string; organizer: string; country: string | null; city: string | null;
-  mode: string | null; prize_pool: number | null; registration_deadline: string | null;
+  mode: string | null; prize_pool: string | null; registration_deadline: string | null;
   start_date: string; featured: boolean; status: string; created_at: string;
   banner_image: string | null; tags: string[] | null;
 };
@@ -205,7 +205,7 @@ export default function AdminHackathons() {
                   <TableCell>{r.country ?? "—"}</TableCell>
                   <TableCell>{r.city ?? "—"}</TableCell>
                   <TableCell><span className="capitalize">{r.mode ?? "—"}</span></TableCell>
-                  <TableCell>{r.prize_pool ? `$${r.prize_pool.toLocaleString()}` : "—"}</TableCell>
+                  <TableCell>{r.prize_pool ? r.prize_pool : "—"}</TableCell>
                   <TableCell>{r.registration_deadline ? new Date(r.registration_deadline).toLocaleDateString() : "—"}</TableCell>
                   <TableCell>{new Date(r.start_date).toLocaleDateString()}</TableCell>
                   <TableCell>{r.featured ? <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" /> : <span className="text-muted-foreground">—</span>}</TableCell>

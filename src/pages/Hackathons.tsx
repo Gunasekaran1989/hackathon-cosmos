@@ -18,14 +18,19 @@ type Row = {
   city: string | null;
   start_date: string;
   end_date: string | null;
-  prize_pool: number | null;
+  prize_pool: string | null;
   tags: string[] | null;
 };
 
 const fmtDate = (d: string) =>
   new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-const fmtMoney = (n: number | null) =>
-  n == null ? "TBA" : n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${n}`;
+const fmtMoney = (v: string | number | null) => {
+  if (v == null || v === "") return "TBA";
+  const n = typeof v === "number" ? v : Number(String(v).replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(n) || n <= 0) return String(v);
+  return n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${n}`;
+};
+
 
 const Hackathons = () => {
   const [rows, setRows] = useState<Row[] | null>(null);
