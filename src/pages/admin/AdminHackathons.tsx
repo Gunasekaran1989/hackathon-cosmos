@@ -29,7 +29,7 @@ import {
 
 type Row = {
   id: string; title: string; organizer: string; country: string | null; city: string | null;
-  mode: string | null; prize_pool: number | null; registration_deadline: string | null;
+  mode: string | null; prize_pool: string | null; registration_deadline: string | null;
   start_date: string; featured: boolean; status: string; created_at: string;
   banner_image: string | null; tags: string[] | null;
 };
