@@ -231,6 +231,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_hackathon_submission: {
+        Args: { admin_notes_override?: string; submission_id: string }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -238,6 +242,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      slugify: { Args: { _input: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
