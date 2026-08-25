@@ -42,11 +42,13 @@ type Sub = {
   admin_notes: string | null;
 };
 
-function parsePrize(text: string | null): number | null {
-  if (!text) return null;
-  const n = Number(String(text).replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) && n > 0 ? n : null;
-}
+type ApproveResult = {
+  success: boolean;
+  hackathon_id: string;
+  slug: string;
+  submission_id: string;
+};
+
 
 export default function AdminSubmissionReview() {
   const { id } = useParams<{ id: string }>();
