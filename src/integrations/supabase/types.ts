@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      badges: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          criteria_type: string
+          criteria_value: number
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          criteria_type: string
+          criteria_value?: number
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          criteria_type?: string
+          criteria_value?: number
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       hackathon_submissions: {
         Row: {
           admin_notes: string | null
@@ -184,26 +223,168 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
+          city: string | null
+          company: string | null
+          country: string | null
           created_at: string
           display_name: string | null
+          full_name: string | null
+          github_url: string | null
           id: string
+          job_title: string | null
+          linkedin_url: string | null
+          location: string | null
+          skills: string[]
           updated_at: string
+          username: string | null
+          website: string | null
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          company?: string | null
+          country?: string | null
           created_at?: string
           display_name?: string | null
+          full_name?: string | null
+          github_url?: string | null
           id: string
+          job_title?: string | null
+          linkedin_url?: string | null
+          location?: string | null
+          skills?: string[]
           updated_at?: string
+          username?: string | null
+          website?: string | null
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          company?: string | null
+          country?: string | null
           created_at?: string
           display_name?: string | null
+          full_name?: string | null
+          github_url?: string | null
           id?: string
+          job_title?: string | null
+          linkedin_url?: string | null
+          location?: string | null
+          skills?: string[]
           updated_at?: string
+          username?: string | null
+          website?: string | null
         }
         Relationships: []
+      }
+      user_activity: {
+        Row: {
+          activity_type: string
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          metadata: Json
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          awarded_at: string
+          badge_id: string
+          id: string
+          metadata: Json
+          user_id: string
+        }
+        Insert: {
+          awarded_at?: string
+          badge_id: string
+          id?: string
+          metadata?: Json
+          user_id: string
+        }
+        Update: {
+          awarded_at?: string
+          badge_id?: string
+          id?: string
+          metadata?: Json
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_hackathon_participations: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          hackathon_id: string
+          id: string
+          participation_status: string
+          registered_at: string
+          role: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          hackathon_id: string
+          id?: string
+          participation_status?: string
+          registered_at?: string
+          role?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          hackathon_id?: string
+          id?: string
+          participation_status?: string
+          registered_at?: string
+          role?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_hackathon_participations_hackathon_id_fkey"
+            columns: ["hackathon_id"]
+            isOneToOne: false
+            referencedRelation: "hackathons"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -235,6 +416,8 @@ export type Database = {
         Args: { admin_notes_override?: string; submission_id: string }
         Returns: Json
       }
+      complete_participation: { Args: { _hackathon_id: string }; Returns: Json }
+      evaluate_user_badges: { Args: { _user_id?: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -242,6 +425,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      register_for_hackathon: { Args: { _hackathon_id: string }; Returns: Json }
       slugify: { Args: { _input: string }; Returns: string }
     }
     Enums: {
