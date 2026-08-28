@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink } from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink, UserPlus, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -9,6 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import placeholder from "@/assets/hack-ai.jpg";
 import { trackEvent } from "@/lib/analytics";
 import { bannerUrl } from "@/lib/banner";
+import { useAuthUser } from "@/hooks/useAuthUser";
+import { toast } from "sonner";
+
 
 // Row subset for the detail page
 type HackathonDetail = {
