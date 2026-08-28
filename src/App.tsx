@@ -48,12 +48,15 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/my-submissions" element={<MySubmissions />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/hackathons" element={<AdminHackathons />} />
           <Route path="/admin/hackathons/:id/edit" element={<AdminHackathonEdit />} />
           <Route path="/admin/submissions" element={<AdminSubmissions />} />
           <Route path="/admin/submissions/:id" element={<AdminSubmissionReview />} />
+          <Route path="/admin/badges" element={<AdminBadges />} />
+
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

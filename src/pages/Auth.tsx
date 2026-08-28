@@ -15,7 +15,7 @@ const isSafeRedirect = (path: string | null) => !!path && path.startsWith("/") &
 const Auth = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const redirectTo = isSafeRedirect(params.get("redirect")) ? (params.get("redirect") as string) : "/";
+  const redirectTo = isSafeRedirect(params.get("redirect")) ? (params.get("redirect") as string) : "/dashboard";
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
