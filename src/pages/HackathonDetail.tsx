@@ -41,8 +41,45 @@ const fmtMoney = (v: string | number | null) => {
 
 const HackathonDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { userId } = useAuthUser();
   const [hackathon, setHackathon] = useState<HackathonDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [participation, setParticipation] = useState<string | null>(null);
+  const [joining, setJoining] = useState(false);
+
+  useEffect(() => {
+    if (!id || !userId) { setParticipation(null); return; }
+    supabase
+      .from("user_hackathon_participations")
+      .select("participation_status")
+      .eq("hackathon_id", id)
+      .maybeSingle()
+      .then(({ data }) => setParticipation(data?.participation_status ?? null));
+  }, [id, userId]);
+
+  const handleJoin = async () => {
+    if (!id) return;
+    if (!userId) return navigate(`/auth?redirect=/hackathon/${id}`);
+    setJoining(true);
+    const { error } = await supabase.rpc("register_for_hackathon", { _hackathon_id: id });
+    setJoining(false);
+    if (error) return toast.error(error.message);
+    setParticipation("registered");
+    toast.success("Participation tracked — check your dashboard for new badges.");
+    trackEvent("hackathon_participation_registered", { id });
+  };
+
+  const handleComplete = async () => {
+    if (!id) return;
+    setJoining(true);
+    const { error } = await supabase.rpc("complete_participation", { _hackathon_id: id });
+    setJoining(false);
+    if (error) return toast.error(error.message);
+    setParticipation("completed");
+    toast.success("Marked as completed.");
+  };
+
 
   useEffect(() => {
     if (!id) return;
