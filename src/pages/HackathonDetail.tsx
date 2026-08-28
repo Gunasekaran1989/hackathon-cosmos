@@ -199,11 +199,25 @@ const HackathonDetail = () => {
                   </a>
                 </Button>
 
+                {participation === "completed" ? (
+                  <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
+                ) : participation ? (
+                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
+                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
+                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                    <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                  </Button>
+                )}
+
                 {!hackathon.website_url && (
                   <p className="text-xs text-muted-foreground text-center">
                     Registration link unavailable for this event.
                   </p>
                 )}
+
               </aside>
             </div>
           </article>
