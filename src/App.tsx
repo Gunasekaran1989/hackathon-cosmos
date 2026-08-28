@@ -14,6 +14,7 @@ import Auth from "./pages/Auth.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Profile from "./pages/Profile.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import MySubmissions from "./pages/MySubmissions.tsx";
 import Hackathons from "./pages/Hackathons.tsx";
 import HackathonDetail from "./pages/HackathonDetail.tsx";
@@ -22,7 +23,9 @@ import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
 import AdminHackathonEdit from "./pages/admin/AdminHackathonEdit.tsx";
 import AdminSubmissions from "./pages/admin/AdminSubmissions.tsx";
 import AdminSubmissionReview from "./pages/admin/AdminSubmissionReview.tsx";
+import AdminBadges from "./pages/admin/AdminBadges.tsx";
 import OAuthConsent from "./pages/OAuthConsent.tsx";
+
 
 const queryClient = new QueryClient();
 
