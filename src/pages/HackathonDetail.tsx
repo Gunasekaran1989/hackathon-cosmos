@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink } from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink, UserPlus, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -9,6 +9,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import placeholder from "@/assets/hack-ai.jpg";
 import { trackEvent } from "@/lib/analytics";
 import { bannerUrl } from "@/lib/banner";
+import { useAuthUser } from "@/hooks/useAuthUser";
+import { toast } from "sonner";
+
 
 // Row subset for the detail page
 type HackathonDetail = {
@@ -38,8 +41,45 @@ const fmtMoney = (v: string | number | null) => {
 
 const HackathonDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { userId } = useAuthUser();
   const [hackathon, setHackathon] = useState<HackathonDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [participation, setParticipation] = useState<string | null>(null);
+  const [joining, setJoining] = useState(false);
+
+  useEffect(() => {
+    if (!id || !userId) { setParticipation(null); return; }
+    supabase
+      .from("user_hackathon_participations")
+      .select("participation_status")
+      .eq("hackathon_id", id)
+      .maybeSingle()
+      .then(({ data }) => setParticipation(data?.participation_status ?? null));
+  }, [id, userId]);
+
+  const handleJoin = async () => {
+    if (!id) return;
+    if (!userId) return navigate(`/auth?redirect=/hackathon/${id}`);
+    setJoining(true);
+    const { error } = await supabase.rpc("register_for_hackathon", { _hackathon_id: id });
+    setJoining(false);
+    if (error) return toast.error(error.message);
+    setParticipation("registered");
+    toast.success("Participation tracked — check your dashboard for new badges.");
+    trackEvent("hackathon_participation_registered", { id });
+  };
+
+  const handleComplete = async () => {
+    if (!id) return;
+    setJoining(true);
+    const { error } = await supabase.rpc("complete_participation", { _hackathon_id: id });
+    setJoining(false);
+    if (error) return toast.error(error.message);
+    setParticipation("completed");
+    toast.success("Marked as completed.");
+  };
+
 
   useEffect(() => {
     if (!id) return;
@@ -199,11 +239,25 @@ const HackathonDetail = () => {
                   </a>
                 </Button>
 
+                {participation === "completed" ? (
+                  <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
+                ) : participation ? (
+                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
+                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
+                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                    <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                  </Button>
+                )}
+
                 {!hackathon.website_url && (
                   <p className="text-xs text-muted-foreground text-center">
                     Registration link unavailable for this event.
                   </p>
                 )}
+
               </aside>
             </div>
           </article>
