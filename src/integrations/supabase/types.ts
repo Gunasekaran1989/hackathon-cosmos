@@ -417,14 +417,6 @@ export type Database = {
         Returns: Json
       }
       complete_participation: { Args: { _hackathon_id: string }; Returns: Json }
-      evaluate_user_badges: { Args: { _user_id?: string }; Returns: Json }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
       register_for_hackathon: { Args: { _hackathon_id: string }; Returns: Json }
       slugify: { Args: { _input: string }; Returns: string }
     }
