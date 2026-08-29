@@ -160,7 +160,10 @@ const Profile = () => {
       .eq("id", userId);
     setSaving(false);
     if (error) {
-      const msg = error.message.includes("profiles_username_key") ? "That username is already taken." : error.message;
+      console.error("[profile] save error:", error.message);
+      const msg = error.message.includes("profiles_username_key")
+        ? "That username is already taken."
+        : "Unable to save your profile right now. Please try again.";
       return toast({ title: "Couldn't save profile", description: msg, variant: "destructive" });
     }
     toast({ title: "Profile updated" });

@@ -67,7 +67,10 @@ const MySubmissions = () => {
         .eq("user_id", session.user.id)
         .order("created_at", { ascending: false });
       if (!mounted) return;
-      if (error) setError(error.message);
+      if (error) {
+        console.error("[my-submissions] fetch error:", error.message);
+        setError("Unable to load your submissions. Please try again later.");
+      }
       setRows((data as Row[]) ?? []);
     })();
     return () => { mounted = false; };
