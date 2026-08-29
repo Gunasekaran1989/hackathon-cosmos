@@ -7,9 +7,9 @@ import { toast } from "sonner";
 import {
   ALLOWED_BANNER_TYPES,
   MAX_BANNER_BYTES,
-  bannerUrl,
   slugify,
   uploadBanner,
+  useBannerUrl,
 } from "@/lib/banner";
 
 type Props = {
@@ -28,7 +28,8 @@ export default function BannerUpload({ value, onChange, slugSource, label = "Ban
   const [progress, setProgress] = useState(0);
   const [localPreview, setLocalPreview] = useState<string | null>(null);
 
-  const preview = localPreview || bannerUrl(value);
+  const signed = useBannerUrl(value);
+  const preview = localPreview || signed;
 
   const handleFile = async (file: File) => {
     if (!ALLOWED_BANNER_TYPES.includes(file.type)) {

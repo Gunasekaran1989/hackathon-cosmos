@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import placeholder from "@/assets/hack-ai.jpg";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 
 type Row = {
   id: string;
@@ -99,11 +99,11 @@ const Hackathons = () => {
                 className="group bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/30 hover-lift transition-all"
               >
                 <div className="relative h-44 overflow-hidden">
-                  <img
-                    src={bannerUrl(h.banner_image) || placeholder}
+                  <BannerImage
+                    path={h.banner_image}
                     alt={h.title}
+                    fallback={placeholder}
                     loading="lazy"
-                    onError={(e) => ((e.currentTarget as HTMLImageElement).src = placeholder)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />

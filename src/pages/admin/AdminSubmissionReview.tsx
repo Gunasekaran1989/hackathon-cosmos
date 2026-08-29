@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { supabase } from "@/integrations/supabase/client";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -204,7 +204,7 @@ export default function AdminSubmissionReview() {
         <div className="lg:col-span-2 space-y-6">
           {sub.banner_image && (
             <Card className="overflow-hidden">
-              <img src={bannerUrl(sub.banner_image)} alt="" className="w-full aspect-[16/9] object-cover" />
+              <BannerImage path={sub.banner_image} loading="eager" className="w-full aspect-[16/9] object-cover" />
             </Card>
           )}
 

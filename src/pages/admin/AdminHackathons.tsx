@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { supabase } from "@/integrations/supabase/client";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -196,9 +196,11 @@ export default function AdminHackathons() {
               {paged.map((r) => (
                 <TableRow key={r.id}>
                   <TableCell>
-                    {r.banner_image ? (
-                      <img src={bannerUrl(r.banner_image)} alt="" className="h-10 w-16 object-cover rounded" />
-                    ) : <div className="h-10 w-16 rounded bg-muted" />}
+                    <BannerImage
+                      path={r.banner_image}
+                      className="h-10 w-16 object-cover rounded"
+                      emptyState={<div className="h-10 w-16 rounded bg-muted" />}
+                    />
                   </TableCell>
                   <TableCell className="font-medium max-w-[220px] truncate">{r.title}</TableCell>
                   <TableCell className="max-w-[160px] truncate">{r.organizer}</TableCell>

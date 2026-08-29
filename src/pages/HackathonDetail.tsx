@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import placeholder from "@/assets/hack-ai.jpg";
 import { trackEvent } from "@/lib/analytics";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 import { useAuthUser } from "@/hooks/useAuthUser";
 import { toast } from "sonner";
 
@@ -138,11 +138,11 @@ const HackathonDetail = () => {
           <article className="rounded-3xl border border-border overflow-hidden bg-card shadow-sm">
             {/* Banner */}
             <div className="relative h-64 sm:h-80 md:h-96 overflow-hidden">
-              <img
-                src={bannerUrl(hackathon.banner_image) || placeholder}
+              <BannerImage
+                path={hackathon.banner_image}
                 alt={hackathon.title}
+                fallback={placeholder}
                 loading="eager"
-                onError={(e) => ((e.currentTarget as HTMLImageElement).src = placeholder)}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
