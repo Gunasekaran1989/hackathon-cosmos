@@ -115,7 +115,11 @@ export async function uploadBanner(
   slug: string,
   onProgress?: (pct: number) => void,
 ): Promise<string> {
-  const path = `hackathons/${slug}/banner.${extForType(file.type)}`;
+  // Uploads are scoped to the signed-in user's own folder (enforced by storage RLS).
+  const { data: auth } = await supabase.auth.getUser();
+  const uid = auth?.user?.id;
+  if (!uid) throw new Error("You must be signed in to upload an image.");
+  const path = `submissions/${uid}/${slug}/banner.${extForType(file.type)}`;
   onProgress?.(20);
   const { error } = await supabase.storage
     .from(BANNERS_BUCKET)
