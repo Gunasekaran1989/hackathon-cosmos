@@ -43,7 +43,10 @@ const Hackathons = () => {
         .from("hackathons")
         .select("id,title,organizer,banner_image,country,city,start_date,end_date,prize_pool,tags")
         .order("start_date", { ascending: true });
-      if (error) setError(error.message);
+      if (error) {
+        console.error("[hackathons] fetch error:", error.message);
+        setError("Unable to load hackathons. Please try again later.");
+      }
       setRows((data as Row[]) ?? []);
     })();
   }, []);

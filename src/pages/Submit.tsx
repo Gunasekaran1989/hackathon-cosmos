@@ -93,10 +93,11 @@ const Submit = () => {
     if (error) {
       trackEvent("submission_form_error", {
         format: payload.format,
-        reason: error.message,
+        reason: "submission_insert_failed",
         duration_ms: Math.round(performance.now() - startedAt),
       });
-      toast.error(error.message || "Something went wrong. Please try again.");
+      console.error("[submit] insert error:", error.message);
+      toast.error("We couldn't save your submission. Please try again.");
       return;
     }
 

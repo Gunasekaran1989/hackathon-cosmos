@@ -64,7 +64,10 @@ const HackathonDetail = () => {
     setJoining(true);
     const { error } = await supabase.rpc("register_for_hackathon", { _hackathon_id: id });
     setJoining(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      console.error("[hackathon-detail] register error:", error.message);
+      return toast.error("Unable to track your participation right now. Please try again.");
+    }
     setParticipation("registered");
     toast.success("Participation tracked — check your dashboard for new badges.");
     trackEvent("hackathon_participation_registered", { id });
@@ -75,7 +78,10 @@ const HackathonDetail = () => {
     setJoining(true);
     const { error } = await supabase.rpc("complete_participation", { _hackathon_id: id });
     setJoining(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      console.error("[hackathon-detail] complete error:", error.message);
+      return toast.error("Unable to update your participation right now. Please try again.");
+    }
     setParticipation("completed");
     toast.success("Marked as completed.");
   };
@@ -96,7 +102,8 @@ const HackathonDetail = () => {
         .single();
 
       if (error) {
-        setError(error.message);
+        console.error("[hackathon-detail] fetch error:", error.message);
+        setError("Unable to load this hackathon. Please try again later.");
         return;
       }
 
