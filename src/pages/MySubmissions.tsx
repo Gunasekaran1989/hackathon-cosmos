@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 import placeholder from "@/assets/hack-ai.jpg";
 
 type StatusFilter = "all" | "pending" | "approved" | "rejected";
@@ -195,11 +195,11 @@ const MySubmissions = () => {
                     className="group bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/30 hover-lift transition-all flex flex-col"
                   >
                     <div className="relative h-40 overflow-hidden bg-muted">
-                      <img
-                        src={bannerUrl(r.banner_image) || placeholder}
+                      <BannerImage
+                        path={r.banner_image}
                         alt={r.event_name}
+                        fallback={placeholder}
                         loading="lazy"
-                        onError={(e) => ((e.currentTarget as HTMLImageElement).src = placeholder)}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />

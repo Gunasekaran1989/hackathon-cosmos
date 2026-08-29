@@ -15,7 +15,7 @@ import {
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import BannerUpload from "@/components/BannerUpload";
-import { bannerUrl } from "@/lib/banner";
+import BannerImage from "@/components/BannerImage";
 
 type Form = {
   title: string; slug: string; short_description: string; description: string;
@@ -223,7 +223,7 @@ export default function AdminHackathonEdit() {
               {form.banner_image && (
                 <div>
                   <Label className="text-xs">Banner preview</Label>
-                  <img src={bannerUrl(form.banner_image)} alt="" className="w-full rounded-lg mt-2 aspect-video object-cover" />
+                  <BannerImage path={form.banner_image} className="w-full rounded-lg mt-2 aspect-video object-cover" />
                 </div>
               )}
             </CardContent>
