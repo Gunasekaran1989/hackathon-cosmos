@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink, UserPlus, Loader2 } from "lucide-react";
+import { Calendar, MapPin, Trophy, Tag, ArrowLeft, ExternalLink, UserPlus, Loader2, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
