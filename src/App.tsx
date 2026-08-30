@@ -17,6 +17,7 @@ import Profile from "./pages/Profile.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import MySubmissions from "./pages/MySubmissions.tsx";
 import Hackathons from "./pages/Hackathons.tsx";
+import PastHackathons from "./pages/PastHackathons.tsx";
 import HackathonDetail from "./pages/HackathonDetail.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminHackathons from "./pages/admin/AdminHackathons.tsx";
@@ -38,6 +39,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/hackathons" element={<Hackathons />} />
+          <Route path="/hackathons/past" element={<PastHackathons />} />
           <Route path="/hackathon/:id" element={<HackathonDetail />} />
           <Route path="/trust" element={<Trust />} />
           <Route path="/guides/what-is-a-hackathon" element={<WhatIsAHackathon />} />
