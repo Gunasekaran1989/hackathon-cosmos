@@ -162,6 +162,11 @@ const HackathonDetail = () => {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
                 <div className="flex flex-wrap gap-2 mb-3">
+                  {isPast && (
+                    <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                      <Clock className="h-3 w-3" /> Past event
+                    </span>
+                  )}
                   {hackathon.tags?.map((tag) => (
                     <span
                       key={tag}
