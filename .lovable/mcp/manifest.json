@@ -19,7 +19,7 @@
       {
         "name": "list_hackathons",
         "title": "List hackathons",
-        "description": "List approved, publicly listed hackathons on Hackverse. Supports optional text search and a result limit.",
+        "description": "List approved, publicly listed hackathons on Hackverse. Defaults to active/upcoming events; optionally include past events. Supports text search and a result limit.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -38,6 +38,10 @@
               "type": "integer",
               "minimum": 1,
               "maximum": 50
+            },
+            "include_past": {
+              "description": "If true, include hackathons whose end_date has already passed. Default false.",
+              "type": "boolean"
             }
           }
         },
