@@ -48,6 +48,12 @@ const HackathonDetail = () => {
   const [participation, setParticipation] = useState<string | null>(null);
   const [joining, setJoining] = useState(false);
 
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isPast = useMemo(() => {
+    if (!hackathon?.end_date) return false;
+    return hackathon.end_date < todayStr;
+  }, [hackathon?.end_date, todayStr]);
+
   useEffect(() => {
     if (!id || !userId) { setParticipation(null); return; }
     supabase
