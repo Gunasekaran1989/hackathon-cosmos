@@ -48,6 +48,12 @@ const HackathonDetail = () => {
   const [participation, setParticipation] = useState<string | null>(null);
   const [joining, setJoining] = useState(false);
 
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const isPast = useMemo(() => {
+    if (!hackathon?.end_date) return false;
+    return hackathon.end_date < todayStr;
+  }, [hackathon?.end_date, todayStr]);
+
   useEffect(() => {
     if (!id || !userId) { setParticipation(null); return; }
     supabase
@@ -119,11 +125,11 @@ const HackathonDetail = () => {
       <Navbar />
       <main className="container py-10 sm:py-16">
         <Link
-          to="/hackathons"
+          to={isPast ? "/hackathons/past" : "/hackathons"}
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Hackathons
+          {isPast ? "Back to Past Hackathons" : "Back to Hackathons"}
         </Link>
 
         {error && (
@@ -156,6 +162,11 @@ const HackathonDetail = () => {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
                 <div className="flex flex-wrap gap-2 mb-3">
+                  {isPast && (
+                    <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-muted text-muted-foreground flex items-center gap-1.5">
+                      <Clock className="h-3 w-3" /> Past event
+                    </span>
+                  )}
                   {hackathon.tags?.map((tag) => (
                     <span
                       key={tag}
@@ -223,43 +234,51 @@ const HackathonDetail = () => {
                   </div>
                 </div>
 
-                <Button
-                  variant="hero"
-                  size="lg"
-                  className="w-full"
-                  asChild
-                >
-                  <a
-                    href={hackathon.website_url || "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      trackEvent("hackathon_register_click", {
-                        id: hackathon.id,
-                        title: hackathon.title,
-                        url: hackathon.website_url,
-                      })
-                    }
-                  >
-                    Register Now
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-
-                {participation === "completed" ? (
-                  <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
-                ) : participation ? (
-                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
-                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                {isPast ? (
+                  <Button variant="outline" size="lg" className="w-full" disabled>
+                    <Clock className="h-4 w-4 mr-2" /> Event ended
                   </Button>
                 ) : (
-                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
-                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                    <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                  <Button
+                    variant="hero"
+                    size="lg"
+                    className="w-full"
+                    asChild
+                  >
+                    <a
+                      href={hackathon.website_url || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        trackEvent("hackathon_register_click", {
+                          id: hackathon.id,
+                          title: hackathon.title,
+                          url: hackathon.website_url,
+                        })
+                      }
+                    >
+                      Register Now
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </Button>
                 )}
 
-                {!hackathon.website_url && (
+                {!isPast && (
+                  participation === "completed" ? (
+                    <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
+                  ) : participation ? (
+                    <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
+                      {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
+                      {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                      <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                    </Button>
+                  )
+                )}
+
+                {!isPast && !hackathon.website_url && (
                   <p className="text-xs text-muted-foreground text-center">
                     Registration link unavailable for this event.
                   </p>
