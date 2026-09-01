@@ -234,43 +234,51 @@ const HackathonDetail = () => {
                   </div>
                 </div>
 
-                <Button
-                  variant="hero"
-                  size="lg"
-                  className="w-full"
-                  asChild
-                >
-                  <a
-                    href={hackathon.website_url || "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      trackEvent("hackathon_register_click", {
-                        id: hackathon.id,
-                        title: hackathon.title,
-                        url: hackathon.website_url,
-                      })
-                    }
-                  >
-                    Register Now
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-
-                {participation === "completed" ? (
-                  <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
-                ) : participation ? (
-                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
-                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                {isPast ? (
+                  <Button variant="outline" size="lg" className="w-full" disabled>
+                    <Clock className="h-4 w-4 mr-2" /> Event ended
                   </Button>
                 ) : (
-                  <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
-                    {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                    <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                  <Button
+                    variant="hero"
+                    size="lg"
+                    className="w-full"
+                    asChild
+                  >
+                    <a
+                      href={hackathon.website_url || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        trackEvent("hackathon_register_click", {
+                          id: hackathon.id,
+                          title: hackathon.title,
+                          url: hackathon.website_url,
+                        })
+                      }
+                    >
+                      Register Now
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </Button>
                 )}
 
-                {!hackathon.website_url && (
+                {!isPast && (
+                  participation === "completed" ? (
+                    <p className="text-sm text-center font-medium text-primary">You completed this hackathon 🎉</p>
+                  ) : participation ? (
+                    <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleComplete}>
+                      {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Mark as completed
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="lg" className="w-full" disabled={joining} onClick={handleJoin}>
+                      {joining && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                      <UserPlus className="h-4 w-4 mr-2" />Track my participation
+                    </Button>
+                  )
+                )}
+
+                {!isPast && !hackathon.website_url && (
                   <p className="text-xs text-muted-foreground text-center">
                     Registration link unavailable for this event.
                   </p>
